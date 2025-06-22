@@ -47,6 +47,8 @@ export default function Login({ }) {
           localStorage.setItem("kitchen_id", kitchenIdData.kitchen_id);
 
           navigate("/kitchen-dashboard");
+        } else if (role === "delivery") {
+          navigate("/delivery-dashboard");
         } else if (role === "customer") {
           navigate("/offers");
         }

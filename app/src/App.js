@@ -8,6 +8,7 @@ import SaveCardPage from "./screens/SaveCard";
 import SubscriptionsPage from "./screens/Subscription";
 import AdminDashboard from "./screens/AdminDashboard";
 import KitchenDashboard from "./screens/KitchenDashboard";
+import DeliveryDashboard from "./screens/DeliveryDashboard";
 
 const RoleRoute = ({ allowedRoles, children }) => {
   const token = localStorage.getItem("token");
@@ -32,6 +33,8 @@ function App() {
       <Route path="/admin-dashboard" element={<RoleRoute allowedRoles={["admin"]}><AdminDashboard /></RoleRoute>} />
       
       <Route path="/kitchen-dashboard" element={<RoleRoute allowedRoles={["kitchen"]}><KitchenDashboard /></RoleRoute>} />
+
+      <Route path="/delivery-dashboard" element={<RoleRoute allowedRoles={["delivery"]}><DeliveryDashboard /></RoleRoute>} />
     </Routes>
   );
 }
