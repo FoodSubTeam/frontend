@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL, ORIGIN_URL } from '../config';
+
+console.log(process.env.REACT_APP_API_BASE_URL); 
 
 const RegisterPage = () => {
   const [form, setForm] = useState({
@@ -19,12 +22,16 @@ const RegisterPage = () => {
     e.preventDefault();
     setError(null);
     try {
-      const res = await fetch("http://localhost:8000/auth/register", {
+      const res = await fetch(`${BASE_URL}/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
+        credentials: 'include',
+        mode: 'cors',
+        referrerPolicy: 'no-referrer',
+        origin: ORIGIN_URL,
       });
 
       if (!res.ok) {

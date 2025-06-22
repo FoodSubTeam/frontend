@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL, ORIGIN_URL } from '../config';
 
 export default function CallbackPage() {
   const { login } = useAuth();
@@ -10,7 +11,7 @@ export default function CallbackPage() {
   useEffect(() => {
     const handleOAuth = async () => {
       // Call your backend to exchange code for token
-      const res = await fetch("http://localhost:8000/callback" + window.location.search);
+      const res = await fetch(`${BASE_URL}/callback` + window.location.search);
       const data = await res.json();
 
       if (data.access_token) {

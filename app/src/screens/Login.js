@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL, ORIGIN_URL } from '../config';
 
 export default function Login({ }) {
   const navigate = useNavigate();
@@ -8,38 +9,55 @@ export default function Login({ }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:8001/auth/login", {
+    const res = await fetch(`${BASE_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
       credentials: 'include',
       mode: 'cors',
       referrerPolicy: 'no-referrer',
-      origin: "http://localhost:8082/",
+      origin: ORIGIN_URL,
     });
     if (res.ok) {
         const data = await res.json();
         localStorage.setItem("token", data.access_token);
         localStorage.setItem("user_role", data.role);
+        localStorage.setItem("user_id", data.user_id);
       
         const role = data.role;
 
         // redirect
         if (role === "admin") {
-            navigate("/admin-dashboard");
+          navigate("/admin-dashboard");
         } else if (role === "kitchen") {
-            navigate("/kitchen-orders");
-        } else if (role === "customer") {
-            navigate("/home");
-        }
 
+          const kitchenIdRes = await fetch(`${BASE_URL}/user/${data.user_id}/kitchen-id`, {
+            method: "GET",
+            headers: { 
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${data.access_token}`
+            },
+            credentials: 'include',
+            mode: 'cors',
+            referrerPolicy: 'no-referrer',
+            origin: ORIGIN_URL,
+          });
+
+          const kitchenIdData = await kitchenIdRes.json();
+          localStorage.setItem("kitchen_id", kitchenIdData.kitchen_id);
+
+          navigate("/kitchen-dashboard");
+        } else if (role === "customer") {
+          navigate("/offers");
+        }
+        window.location.reload();
     } else {
       alert("Login failed");
     }
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8000/login";
+    window.location.href = `${BASE_URL}/login`;
   };
 
   return (
