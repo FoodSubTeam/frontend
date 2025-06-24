@@ -9,6 +9,7 @@ import SubscriptionsPage from "./screens/Subscription";
 import AdminDashboard from "./screens/AdminDashboard";
 import KitchenDashboard from "./screens/KitchenDashboard";
 import DeliveryDashboard from "./screens/DeliveryDashboard";
+import UserAddressPage from "./screens/UserAddress";
 
 const RoleRoute = ({ allowedRoles, children }) => {
   const token = localStorage.getItem("token");
@@ -29,6 +30,7 @@ function App() {
       <Route path="/offers" element={<RoleRoute allowedRoles={["customer"]}><OffersPage /></RoleRoute>} />
       <Route path="/save-card" element={<RoleRoute allowedRoles={["customer"]}><SaveCardPage /></RoleRoute>} />
       <Route path="/subscriptions" element={<RoleRoute allowedRoles={["customer"]}><SubscriptionsPage /></RoleRoute>} />
+      <Route path="/user-address" element={<RoleRoute allowedRoles={["customer"]}><UserAddressPage /></RoleRoute>} />
 
       <Route path="/admin-dashboard" element={<RoleRoute allowedRoles={["admin"]}><AdminDashboard /></RoleRoute>} />
       

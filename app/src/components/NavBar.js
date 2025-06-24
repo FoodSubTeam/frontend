@@ -13,6 +13,7 @@ export default function NavBar() {
           <Link to="/offers" style={{ marginRight: "15px" }}>🏷️ Offers</Link>
           <Link to="/save-card" style={{ marginRight: "15px" }}>💳 Save Payment Method</Link>
           <Link to="/subscriptions" style={{ marginRight: "15px" }}>Subscriptions</Link>
+          <Link to="/user-address" style={{ marginRight: "15px" }}>Address</Link>
         </>
       )}
 
